@@ -4,6 +4,8 @@ namespace MyProject.Tests;
 
 public class MetricBmiCalculatorTests
 {
+    private const string NOTVALID_WEIGHT_EX_MESSAGE = "Weight is not a valid number";
+    private const string NOTVALID_HEIGHT_EX_MESSAGE = "Height is not a valid number";
 
     [Theory]
     [InlineData(100, 170, 34.6)]
@@ -38,7 +40,7 @@ public class MetricBmiCalculatorTests
 
         // assert
         ArgumentException ex = Assert.Throws<ArgumentException>(action);
-        Assert.Equal("Weight is not a valid number", ex.Message);
+        Assert.Equal(NOTVALID_WEIGHT_EX_MESSAGE, ex.Message);
     }
 
     [Theory]
@@ -57,7 +59,7 @@ public class MetricBmiCalculatorTests
 
         // assert
         ArgumentException ex = Assert.Throws<ArgumentException>(action);
-        Assert.Equal("Height is not a valid number", ex.Message);
+        Assert.Equal(NOTVALID_HEIGHT_EX_MESSAGE, ex.Message);
     }
 
 }

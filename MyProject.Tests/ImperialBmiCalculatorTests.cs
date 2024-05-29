@@ -2,6 +2,9 @@
 
 public class ImperialBmiCalculatorTests
 {
+    private const string NOTVALID_WEIGHT_EX_MESSAGE = "Weight is not a valid number";
+    private const string NOTVALID_HEIGHT_EX_MESSAGE = "Height is not a valid number";
+
     [Theory]
     [InlineData(100, 170, 2.43)]
     [InlineData(57, 170, 1.39)]
@@ -36,7 +39,7 @@ public class ImperialBmiCalculatorTests
 
         // assert
         ArgumentException ex = Assert.Throws<ArgumentException>(action);
-        Assert.Equal("Weight is not a valid number", ex.Message);
+        Assert.Equal(NOTVALID_WEIGHT_EX_MESSAGE, ex.Message);
     }
 
     [Theory]
@@ -55,6 +58,6 @@ public class ImperialBmiCalculatorTests
 
         // assert
         ArgumentException ex = Assert.Throws<ArgumentException>(action);
-        Assert.Equal("Height is not a valid number", ex.Message);
+        Assert.Equal(NOTVALID_HEIGHT_EX_MESSAGE, ex.Message);
     }
 }
