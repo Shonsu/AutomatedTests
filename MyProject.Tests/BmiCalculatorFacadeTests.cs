@@ -1,29 +1,33 @@
 ﻿using FluentAssertions;
+using Moq;
 
 namespace MyProject.Tests;
 
 public class BmiCalculatorFacadeTests
 {
+    private const string UNDERWEIGHT_SUMMARY = "You are underweight, you should put on some weight";
+    private const string NORMAL_SUMMARY = "Your weight is normal, keep it up";
     private const string OVERWEIGHT_SUMMARY = "You are a bit overweight";
+    private const string OBESITY_SUMMARY = "You should take care of your obesity";
+    private const string EXTREMEOBESITY_SUMMARY = "Your extreme obesity might cause health problems";
 
-    [Fact]
-    public void GetResult_ForValidInputs_ReturnCorrectResult()
+    [Theory]
+    [InlineData(BmiClassification.Underweight, UNDERWEIGHT_SUMMARY)]
+    [InlineData(BmiClassification.Normal, NORMAL_SUMMARY)]
+    [InlineData(BmiClassification.Overweight, OVERWEIGHT_SUMMARY)]
+    [InlineData(BmiClassification.Obesity, OBESITY_SUMMARY)]
+    [InlineData(BmiClassification.ExtremeObesity, EXTREMEOBESITY_SUMMARY)]
+    public void GetResult_ForValidInputs_ReturnCorrectSummary(BmiClassification bmiClassification, String summary)
     {
         // arrange
-        IBmiDeterminator bmiDeterminator = new BmiDeterminator();
-        BmiCalculatorFacade facade = new BmiCalculatorFacade(UnitSystem.Metric, bmiDeterminator);
-        double weight = 90;
-        double height = 190;
+        var bmiDeterminatorMock = new Mock<IBmiDeterminator>();
+        bmiDeterminatorMock.Setup(b => b.DetermineBmi(It.IsAny<double>())).Returns(bmiClassification);
+        BmiCalculatorFacade facade = new BmiCalculatorFacade(UnitSystem.Metric, bmiDeterminatorMock.Object);
 
         // act
-        BmiResult result = facade.GetResult(weight, height);
+        BmiResult result = facade.GetResult(1, 1);
 
         // assert
-        // Assert.Equal(BmiClassification.Overweight, result.BmiClassification);
-        // Assert.Equal(24.93, result.Bmi);
-        // Assert.Equal(OVERWEIGHT_SUMMARY, result.Summary);
-        result.Bmi.Should().Be(24.93);
-        result.BmiClassification.Should().Be(BmiClassification.Overweight);
-        result.Summary.Should().Be(OVERWEIGHT_SUMMARY);
+        result.Summary.Should().Be(summary);
     }
 }
