@@ -15,6 +15,7 @@ namespace Exercise
                 if (listOfNumbers[i] % 2 == 0)
                 {
                     listOfNumbers.RemoveAt(i);
+                    i--;
                 }
             }
             return listOfNumbers;
