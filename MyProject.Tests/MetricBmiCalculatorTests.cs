@@ -7,13 +7,19 @@ public class MetricBmiCalculatorTests
     private const string NOTVALID_WEIGHT_EX_MESSAGE = "Weight is not a valid number";
     private const string NOTVALID_HEIGHT_EX_MESSAGE = "Height is not a valid number";
 
+    public static IEnumerable<object[]> GetSampleData()
+    {
+        yield return new object[] { 100, 170, 34.6 };
+        yield return new object[] { 57, 170, 19.72 };
+        yield return new object[] { 70, 170, 24.22 };
+        yield return new object[] { 77, 160, 30.08 };
+        yield return new object[] { 80, 190, 22.16 };
+        yield return new object[] { 90, 190, 24.93 };
+    }
+
     [Theory]
-    [InlineData(100, 170, 34.6)]
-    [InlineData(57, 170, 19.72)]
-    [InlineData(70, 170, 24.22)]
-    [InlineData(77, 160, 30.08)]
-    [InlineData(80, 190, 22.16)]
-    [InlineData(90, 190, 24.93)]
+    // [InlineData(100, 170, 34.6)] for example purpose
+    [MemberData(nameof(GetSampleData))]
     public void CalculateBmi_ForGivenWeigthAndHeight_ReturnCorrectBmi(double weight, double height, double bmiResult)
     {
         //arrange
