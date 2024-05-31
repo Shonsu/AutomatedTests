@@ -32,7 +32,8 @@ public class ValidatorTests
     }
 
     [Theory]
-    [MemberData(nameof(DataResultsFalse))]
+    // [MemberData(nameof(DataResultsFalse))]
+    [ClassData(typeof(ValidatorTestData))]
     public void ValidateOverlapping_WithOverlappingRangeListAndInput_ShouldReturnFalse(List<DateRange> dateRanges, DateRange input)
     {
         // arrange
