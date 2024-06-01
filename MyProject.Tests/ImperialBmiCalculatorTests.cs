@@ -12,7 +12,8 @@ public class ImperialBmiCalculatorTests
     // [InlineData(77, 160, 2.11)]
     // [InlineData(80, 190, 1.56)]
     // [InlineData(90, 190, 1.75)]
-    [ClassData(typeof(ImperialBmiCalculatorTestsData))]
+    //[ClassData(typeof(ImperialBmiCalculatorTestsData))]
+    [JsonFileData(@"Data/ImperialBmiCalculatorData.json")]
     public void CalculateBmi_ForGivenWeigthAndHeight_ReturnCorrectBmi(double weight, double height, double bmiResult)
     {
         //arrange
