@@ -6,12 +6,13 @@ public class ImperialBmiCalculatorTests
     private const string NOTVALID_HEIGHT_EX_MESSAGE = "Height is not a valid number";
 
     [Theory]
-    [InlineData(100, 170, 2.43)]
-    [InlineData(57, 170, 1.39)]
-    [InlineData(70, 170, 1.7)]
-    [InlineData(77, 160, 2.11)]
-    [InlineData(80, 190, 1.56)]
-    [InlineData(90, 190, 1.75)]
+    // [InlineData(100, 170, 2.43)]
+    // [InlineData(57, 170, 1.39)]
+    // [InlineData(70, 170, 1.7)]
+    // [InlineData(77, 160, 2.11)]
+    // [InlineData(80, 190, 1.56)]
+    // [InlineData(90, 190, 1.75)]
+    [ClassData(typeof(ImperialBmiCalculatorTestsData))]
     public void CalculateBmi_ForGivenWeigthAndHeight_ReturnCorrectBmi(double weight, double height, double bmiResult)
     {
         //arrange

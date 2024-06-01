@@ -1,5 +1,8 @@
-﻿using FluentAssertions;
+﻿using System.Diagnostics;
+using FluentAssertions;
 using Moq;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace MyProject.Tests;
 
@@ -10,6 +13,13 @@ public class BmiCalculatorFacadeTests
     private const string OVERWEIGHT_SUMMARY = "You are a bit overweight";
     private const string OBESITY_SUMMARY = "You should take care of your obesity";
     private const string EXTREMEOBESITY_SUMMARY = "Your extreme obesity might cause health problems";
+
+    private readonly ITestOutputHelper _outputHelper;
+
+    public BmiCalculatorFacadeTests(ITestOutputHelper testOutputHelper)
+    {
+        _outputHelper = testOutputHelper;
+    }
 
     [Theory]
     [InlineData(BmiClassification.Underweight, UNDERWEIGHT_SUMMARY)]
@@ -26,7 +36,7 @@ public class BmiCalculatorFacadeTests
 
         // act
         BmiResult result = facade.GetResult(1, 1);
-
+        _outputHelper.WriteLine($"{bmiClassification} : {result.Summary}");
         // assert
         result.Summary.Should().Be(summary);
     }
